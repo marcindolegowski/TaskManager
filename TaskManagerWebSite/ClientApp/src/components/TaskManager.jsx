@@ -55,8 +55,11 @@ class TaskManager extends Component {
         const { isError, errorMessage } = this.props;
         return isError ?
             (
-                <div className="alert alert-danger" role="alert">
+                <div className="alert alert-danger alert-dismissible fade show" role="alert">
                     {errorMessage}
+                    <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             )
             : null
@@ -93,7 +96,7 @@ class TaskManager extends Component {
     renderTasks = () => {
         const { tasks } = this.props;
 
-        if (tasks) {
+        if (tasks && tasks.length > 0) {
             return tasks.map((item, index) => {
                 return this.state.editedTaskIndex === index ?
                     this.renderTaskEditor(item, index) :
@@ -101,7 +104,7 @@ class TaskManager extends Component {
             });
         }
         else {
-            return <div>No tasks found</div>
+            return <h4 class="alert alert-info" role="alert">No tasks found</h4>
         }
     }
 
